@@ -2,7 +2,7 @@ package game
 
 import (
 	// color "image/color"
-	"math"
+	// "math"
 	_ "image/png"
 	"log"
 	"github.com/hajimehoshi/ebiten/v2"
@@ -28,7 +28,7 @@ func (bullet *Bullet) SetPos (x, y float64) {
 
 func (bullet *Bullet) Init(myState *State) {
 	bullet.state = myState
-	bullet.speed = 10
+	bullet.speed = 200
 	var err error
 	bullet.img, _, err = ebitenutil.NewImageFromFile("bullet.png")
 	if err != nil {
