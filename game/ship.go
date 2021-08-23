@@ -78,11 +78,17 @@ func (s *Ship) Update() {
 	s.vy *= 0.95
 	s.x += s.vx * DT * s.speed
 	s.y += s.vy * DT * s.speed
-	if s.x > 800 {
+	if s.x > 800 {	
 		s.x = 800
 	}
 	if s.x < 0 {
 		s.x = 0
+	}
+	if s.y < 0 {
+		s.y = 0
+	}
+	if s.y > 600 {
+		s.y = 600
 	}
 	s.op.GeoM.Reset()
 	s.op.GeoM.Scale(s.scale, s.scale)

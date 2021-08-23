@@ -13,8 +13,9 @@ func (s *State) Init(){
 }
 
 func (s *State) Update() {
-	for _, entity := range s.entities {
-		entity.Update()
+	// backwards because we might need to remove objects while iterating
+	for i:=len(s.entities)-1;i>=0;i-- {
+		s.entities[i].Update()
 	}
 }
 
