@@ -43,13 +43,6 @@ func (enemy *Enemy) Init(myState *State) {
 	enemy.UpdatePosition()
 }
 
-func SpawnEnemy(myState *State) {
-	var enemy = new(Enemy)
-	enemy.x = rand.Float64() * 800.0
-	enemy.Init(myState)
-	myState.AddEntity(enemy)
-}
-
 func (enemy *Enemy) UpdatePosition() {
 	enemy.x += enemy.vx * DT * enemy.speed
 	enemy.y += enemy.vy * DT * enemy.speed
@@ -73,4 +66,12 @@ func (s *Enemy) Draw(screen *ebiten.Image) {
 	s.op.GeoM.Scale(s.scale, s.scale)
 	s.op.GeoM.Translate(s.x, s.y)
 	screen.DrawImage(s.img, s.op)
+}
+
+func SpawnEnemy(myState *State) {
+	var enemy = new(Enemy)
+	enemy.y = -64
+	enemy.x = rand.Float64() * 800.0
+	enemy.Init(myState)
+	myState.AddEntity(enemy)
 }
