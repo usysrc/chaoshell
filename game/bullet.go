@@ -5,21 +5,22 @@ import (
 	// "math"
 	_ "image/png"
 	"log"
+
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
 
-type Bullet struct{
-	x, y float64
+type Bullet struct {
+	x, y   float64
 	vx, vy float64
-	speed float64
-	img *ebiten.Image
-	op *ebiten.DrawImageOptions
-	scale float64
-	state *State
+	speed  float64
+	img    *ebiten.Image
+	op     *ebiten.DrawImageOptions
+	scale  float64
+	state  *State
 }
 
-func (bullet *Bullet) SetPos (x, y float64) {
+func (bullet *Bullet) SetPos(x, y float64) {
 	bullet.x, bullet.y = x, y
 	bullet.op.GeoM.Reset()
 	bullet.op.GeoM.Scale(bullet.scale, bullet.scale)
@@ -48,11 +49,16 @@ func (bullet *Bullet) Update() {
 	if bullet.y < 0 {
 		bullet.state.RemoveEntity(bullet)
 	}
-	bullet.op.GeoM.Reset()
-	bullet.op.GeoM.Scale(bullet.scale, bullet.scale)
-	bullet.op.GeoM.Translate(bullet.x, bullet.y)
+
+}
+
+func (bullet *Bullet) Type() string {
+	return "bullet"
 }
 
 func (s *Bullet) Draw(screen *ebiten.Image) {
+	s.op.GeoM.Reset()
+	s.op.GeoM.Scale(s.scale, s.scale)
+	s.op.GeoM.Translate(s.x, s.y)
 	screen.DrawImage(s.img, s.op)
 }

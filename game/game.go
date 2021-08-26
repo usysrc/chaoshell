@@ -2,27 +2,34 @@ package game
 
 import (
 	"image/color"
+	"math/rand"
+	"time"
+
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
 func init() {}
 
 var (
-	player *Ship
-	bg *ebiten.Image
+	player  *Ship
+	bg      *ebiten.Image
 	myState *State
 )
 
 type Game struct{}
 
 func (g *Game) Init() {
+	rand.Seed(time.Now().UnixNano())
+
 	myState = new(State)
 	myState.Init()
 	player = new(Ship)
 	player.Init(myState)
 	player.SetPos(360, 500)
-	bg = ebiten.NewImage(800,600)
+	bg = ebiten.NewImage(800, 600)
 	bg.Fill(color.White)
+
+	SpawnEnemy(myState)
 }
 
 func (g *Game) Update() error {
