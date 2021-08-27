@@ -20,6 +20,13 @@ type Bullet struct {
 	state  *State
 }
 
+func (b *Bullet) X() float64 {
+	return b.x
+}
+func (b *Bullet) Y() float64 {
+	return b.y
+}
+
 func (bullet *Bullet) SetPos(x, y float64) {
 	bullet.x, bullet.y = x, y
 	bullet.op.GeoM.Reset()
@@ -49,7 +56,22 @@ func (bullet *Bullet) Update() {
 	if bullet.y < 0 {
 		bullet.state.RemoveEntity(bullet)
 	}
-
+	w := 32.0
+	h := 32.0
+	found := false
+	for i := len(bullet.state.entities) - 1; i >= 0; i-- {
+		e := bullet.state.entities[i]
+		if e != bullet && e.Type() != bullet.Type() {
+			if bullet.x > e.X() && bullet.x < e.X()+w && bullet.y > e.Y() && bullet.y < e.Y()+h {
+				bullet.state.RemoveEntity(e)
+				found = true
+				break
+			}
+		}
+	}
+	if found {
+		bullet.state.RemoveEntity(bullet)
+	}
 }
 
 func (bullet *Bullet) Type() string {

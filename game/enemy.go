@@ -21,6 +21,14 @@ type Enemy struct {
 	state  *State
 }
 
+func (e *Enemy) X() float64 {
+	return e.x
+}
+
+func (e *Enemy) Y() float64 {
+	return e.y
+}
+
 func (enemy *Enemy) SetPos(x, y float64) {
 	enemy.x, enemy.y = x, y
 	enemy.op.GeoM.Reset()
