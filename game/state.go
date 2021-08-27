@@ -12,14 +12,26 @@ func (s *State) Init() {
 	s.entities = make([]Entity, 0)
 }
 
-func (s *State) Update() {
+func (s State) All(fn func(s Entity) bool) bool {
 	// backwards because we might need to remove objects while iterating
 	for i := len(s.entities) - 1; i >= 0; i-- {
 		// we need to check, because length might change during iteration
 		if i < len(s.entities) {
-			s.entities[i].Update()
+
+			ret := fn(s.entities[i])
+			if ret == false {
+				return false
+			}
 		}
 	}
+	return true
+}
+
+func (s *State) Update() {
+	s.All(func(s Entity) bool {
+		s.Update()
+		return true
+	})
 }
 
 func (s *State) Draw(screen *ebiten.Image) {

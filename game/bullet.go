@@ -59,16 +59,17 @@ func (bullet *Bullet) Update() {
 	w := 32.0
 	h := 32.0
 	found := false
-	for i := len(bullet.state.entities) - 1; i >= 0; i-- {
-		e := bullet.state.entities[i]
+	bullet.state.All(func(e Entity) bool {
 		if e != bullet && e.Type() != bullet.Type() {
 			if bullet.x > e.X() && bullet.x < e.X()+w && bullet.y > e.Y() && bullet.y < e.Y()+h {
 				bullet.state.RemoveEntity(e)
 				found = true
-				break
+				return false
 			}
 		}
-	}
+		return true
+	})
+
 	if found {
 		bullet.state.RemoveEntity(bullet)
 	}
