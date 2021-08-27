@@ -1,11 +1,12 @@
 package game
 
 import (
-	"image/color"
+	"log"
 	"math/rand"
 	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 )
 
 func init() {}
@@ -30,8 +31,11 @@ func (g *Game) Init() {
 	player = new(Ship)
 	player.Init(myState)
 	player.SetPos(360, 500)
-	bg = ebiten.NewImage(800, 600)
-	bg.Fill(color.White)
+	var err error
+	bg, _, err = ebitenutil.NewImageFromFile("background.png")
+	if err != nil {
+		log.Fatal(err)
+	}
 	for i := 0; i < 5; i++ {
 		timer.After(rand.Float64()*3.0, func() {
 			SpawnEnemy(myState)

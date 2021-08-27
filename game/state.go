@@ -12,12 +12,13 @@ func (s *State) Init() {
 	s.entities = make([]Entity, 0)
 }
 
+// return true means that iteration was complete, false means that iteration ended prematurely
+// the callback function returns false then iteration is ended immediatly
 func (s State) All(fn func(s Entity) bool) bool {
 	// backwards because we might need to remove objects while iterating
 	for i := len(s.entities) - 1; i >= 0; i-- {
-		// we need to check, because length might change during iteration
+		// we need to check, because length might change during iteration if we remove an item
 		if i < len(s.entities) {
-
 			ret := fn(s.entities[i])
 			if ret == false {
 				return false
