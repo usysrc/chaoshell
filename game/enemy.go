@@ -12,13 +12,7 @@ import (
 )
 
 type Enemy struct {
-	x, y   float64
-	vx, vy float64
-	speed  float64
-	img    *ebiten.Image
-	op     *ebiten.DrawImageOptions
-	scale  float64
-	state  *State
+	Entity
 }
 
 func (e *Enemy) X() float64 {

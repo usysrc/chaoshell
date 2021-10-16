@@ -11,13 +11,7 @@ import (
 )
 
 type Bullet struct {
-	x, y   float64
-	vx, vy float64
-	speed  float64
-	img    *ebiten.Image
-	op     *ebiten.DrawImageOptions
-	scale  float64
-	state  *State
+	Entity
 }
 
 func (b *Bullet) X() float64 {
@@ -59,7 +53,7 @@ func (bullet *Bullet) Update() {
 	w := 32.0
 	h := 32.0
 	found := false
-	bullet.state.All(func(e Entity) bool {
+	bullet.state.All(func(e IEntity) bool {
 		if e != bullet && e.Type() != bullet.Type() {
 			if bullet.x > e.X() && bullet.x < e.X()+w && bullet.y > e.Y() && bullet.y < e.Y()+h {
 				bullet.state.RemoveEntity(e)
@@ -77,11 +71,4 @@ func (bullet *Bullet) Update() {
 
 func (bullet *Bullet) Type() string {
 	return "bullet"
-}
-
-func (s *Bullet) Draw(screen *ebiten.Image) {
-	s.op.GeoM.Reset()
-	s.op.GeoM.Scale(s.scale, s.scale)
-	s.op.GeoM.Translate(s.x, s.y)
-	screen.DrawImage(s.img, s.op)
 }

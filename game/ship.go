@@ -15,13 +15,7 @@ import (
 const DT = 0.016
 
 type Ship struct {
-	x, y   float64
-	vx, vy float64
-	speed  float64
-	img    *ebiten.Image
-	op     *ebiten.DrawImageOptions
-	scale  float64
-	state  *State
+	Entity
 }
 
 func (s *Ship) SetPos(x, y float64) {
