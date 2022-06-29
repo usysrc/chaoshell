@@ -67,8 +67,8 @@ func (s *Ship) Update() {
 	s.vy *= 0.95
 	s.x += s.vx * DT * s.speed
 	s.y += s.vy * DT * s.speed
-	if s.x > 800 {
-		s.x = 800
+	if s.x > 800-64 {
+		s.x = 800 - 64
 	}
 	if s.x < 0 {
 		s.x = 0
