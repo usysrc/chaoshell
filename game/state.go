@@ -20,7 +20,7 @@ func (s State) All(fn func(s IEntity) bool) bool {
 		// we need to check, because length might change during iteration if we remove an item
 		if i < len(s.entities) {
 			ret := fn(s.entities[i])
-			if ret == false {
+			if !ret {
 				return false
 			}
 		}

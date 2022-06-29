@@ -1,6 +1,7 @@
 package game
 
 import (
+	"errors"
 	"log"
 	"math/rand"
 	"time"
@@ -17,6 +18,8 @@ var (
 	myState *State
 	timer   *Timer
 )
+
+var ErrTerminated = errors.New("errTerminated")
 
 type Game struct{}
 
@@ -47,6 +50,10 @@ func (g *Game) Update() error {
 	player.Update()
 	myState.Update()
 	timer.Update()
+
+	if ebiten.IsKeyPressed(ebiten.KeyEscape) {
+		return ErrTerminated
+	}
 	return nil
 }
 

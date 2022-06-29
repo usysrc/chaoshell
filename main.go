@@ -20,6 +20,10 @@ func main() {
 
 	myGame.Init()
 	if err := ebiten.RunGame(myGame); err != nil {
+		if err == game.ErrTerminated {
+			return
+		}
+		// Other termination
 		log.Fatal(err)
 	}
 	// myGame.Init()
