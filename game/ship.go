@@ -76,8 +76,8 @@ func (s *Ship) Update() {
 	if s.y < 0 {
 		s.y = 0
 	}
-	if s.y > 600 {
-		s.y = 600
+	if s.y > 600-64 {
+		s.y = 600 - 64
 	}
 }
 

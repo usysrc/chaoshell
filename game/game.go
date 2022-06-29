@@ -23,6 +23,13 @@ var ErrTerminated = errors.New("errTerminated")
 
 type Game struct{}
 
+func Spawn() {
+	timer.After(rand.Float64()*3.0, func() {
+		SpawnEnemy(myState)
+		Spawn()
+	})
+}
+
 func (g *Game) Init() {
 	rand.Seed(time.Now().UnixNano())
 
@@ -39,11 +46,7 @@ func (g *Game) Init() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	for i := 0; i < 5; i++ {
-		timer.After(rand.Float64()*3.0, func() {
-			SpawnEnemy(myState)
-		})
-	}
+	Spawn()
 }
 
 func (g *Game) Update() error {
