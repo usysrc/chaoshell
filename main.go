@@ -14,7 +14,7 @@ func init() {}
 
 func main() {
 	ebiten.SetWindowSize(800, 600)
-	ebiten.SetWindowTitle("Hello, World!")
+	ebiten.SetWindowTitle("ChaosHell")
 	ebiten.SetVsyncEnabled(false)
 	ebiten.SetMaxTPS(60)
 
