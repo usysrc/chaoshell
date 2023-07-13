@@ -12,6 +12,7 @@ func (s *State) Init() {
 	s.entities = make([]IEntity, 0)
 }
 
+// iterate over all states
 // return true means that iteration was complete, false means that iteration ended prematurely
 // the callback function returns false then iteration is ended immediatly
 func (s State) All(fn func(s IEntity) bool) bool {
