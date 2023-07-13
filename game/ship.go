@@ -25,7 +25,7 @@ func (s *Ship) SetPos(x, y float64) {
 	s.op.GeoM.Translate(s.x, s.y)
 }
 
-func (s *Ship) Init(myState *State) {
+func (s *Ship) onInit(myState *State) error {
 	s.state = myState
 	s.speed = 400
 	var err error
@@ -36,9 +36,10 @@ func (s *Ship) Init(myState *State) {
 	s.scale = 4
 	s.op = &ebiten.DrawImageOptions{}
 	s.op.GeoM.Scale(s.scale, s.scale)
+	return nil
 }
 
-func (s *Ship) Update() {
+func (s *Ship) onUpdate() error {
 	var x, y = 0.0, 0.0
 	if ebiten.IsKeyPressed(ebiten.KeyUp) {
 		y -= 1.0
@@ -79,11 +80,13 @@ func (s *Ship) Update() {
 	if s.y > 600-64 {
 		s.y = 600 - 64
 	}
+	return nil
 }
 
-func (s *Ship) Draw(screen *ebiten.Image) {
+func (s *Ship) onDraw(screen *ebiten.Image) error {
 	s.op.GeoM.Reset()
 	s.op.GeoM.Scale(s.scale, s.scale)
 	s.op.GeoM.Translate(s.x, s.y)
 	screen.DrawImage(s.img, s.op)
+	return nil
 }

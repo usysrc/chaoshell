@@ -13,7 +13,7 @@ import (
 func init() {}
 
 var (
-	player *Ship
+	player *element
 	bg     *ebiten.Image
 	state  *State
 	timer  *Timer
@@ -38,9 +38,12 @@ func (g *Game) Init() {
 
 	state = new(State)
 	state.Init()
-	player = new(Ship)
-	player.Init(state)
-	player.SetPos(360, 500)
+	player = &element{}
+	player.addComponent(&Ship{})
+	player.init(state)
+	player.position.x = 360
+	player.position.y = 500
+
 	var err error
 	bg, _, err = ebitenutil.NewImageFromFile("background.png")
 	if err != nil {
@@ -50,7 +53,7 @@ func (g *Game) Init() {
 }
 
 func (g *Game) Update() error {
-	player.Update()
+	player.update()
 	state.Update()
 	timer.Update()
 
@@ -62,7 +65,7 @@ func (g *Game) Update() error {
 
 func (g *Game) Draw(screen *ebiten.Image) {
 	screen.DrawImage(bg, nil)
-	player.Draw(screen)
+	player.draw(screen)
 	state.Draw(screen)
 	timer.Draw(screen)
 }
