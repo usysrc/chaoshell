@@ -12,30 +12,32 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 )
 
-const DT = 0.016
+const DT = 1 / 60
 
 type Ship struct {
 	Entity
+	container *element
 }
 
-func (s *Ship) SetPos(x, y float64) {
-	s.x, s.y = x, y
-	s.op.GeoM.Reset()
-	s.op.GeoM.Scale(s.scale, s.scale)
-	s.op.GeoM.Translate(s.x, s.y)
-}
-
-func (s *Ship) onInit(myState *State) error {
-	s.state = myState
+func newShip(container *element, state *State) *Ship {
+	s := &Ship{
+		container: container,
+	}
+	s.state = state
 	s.speed = 400
+
 	var err error
 	s.img, _, err = ebitenutil.NewImageFromFile("ship.png")
 	if err != nil {
 		log.Fatal(err)
 	}
+
 	s.scale = 4
 	s.op = &ebiten.DrawImageOptions{}
-	s.op.GeoM.Scale(s.scale, s.scale)
+	return nil
+}
+
+func (s *Ship) onInit(state *State) error {
 	return nil
 }
 
@@ -58,7 +60,6 @@ func (s *Ship) onUpdate() error {
 		bullet.Init(s.state)
 		bullet.SetPos(s.x+16, s.y)
 		s.state.AddEntity(bullet)
-
 	}
 	s.vx += x * DT * 5
 	s.vy += y * DT * 5
@@ -80,13 +81,15 @@ func (s *Ship) onUpdate() error {
 	if s.y > 600-64 {
 		s.y = 600 - 64
 	}
+	s.container.position.x = s.x
+	s.container.position.y = s.y
 	return nil
 }
 
 func (s *Ship) onDraw(screen *ebiten.Image) error {
 	s.op.GeoM.Reset()
 	s.op.GeoM.Scale(s.scale, s.scale)
-	s.op.GeoM.Translate(s.x, s.y)
+	s.op.GeoM.Translate(s.container.position.x, s.container.position.x)
 	screen.DrawImage(s.img, s.op)
 	return nil
 }

@@ -38,11 +38,12 @@ func (g *Game) Init() {
 
 	state = new(State)
 	state.Init()
+
 	player = &element{}
-	player.addComponent(&Ship{})
-	player.init(state)
 	player.position.x = 360
 	player.position.y = 500
+	player.addComponent(newShip(player, state))
+	player.init(state)
 
 	var err error
 	bg, _, err = ebitenutil.NewImageFromFile("background.png")
