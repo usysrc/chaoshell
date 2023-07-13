@@ -13,10 +13,10 @@ import (
 func init() {}
 
 var (
-	player  *Ship
-	bg      *ebiten.Image
-	myState *State
-	timer   *Timer
+	player *Ship
+	bg     *ebiten.Image
+	state  *State
+	timer  *Timer
 )
 
 var ErrTerminated = errors.New("errTerminated")
@@ -25,7 +25,7 @@ type Game struct{}
 
 func Spawn() {
 	timer.After(rand.Float64()*3.0, func() {
-		SpawnEnemy(myState)
+		SpawnEnemy(state)
 		Spawn()
 	})
 }
@@ -36,10 +36,10 @@ func (g *Game) Init() {
 	timer = new(Timer)
 	timer.Init()
 
-	myState = new(State)
-	myState.Init()
+	state = new(State)
+	state.Init()
 	player = new(Ship)
-	player.Init(myState)
+	player.Init(state)
 	player.SetPos(360, 500)
 	var err error
 	bg, _, err = ebitenutil.NewImageFromFile("background.png")
@@ -51,7 +51,7 @@ func (g *Game) Init() {
 
 func (g *Game) Update() error {
 	player.Update()
-	myState.Update()
+	state.Update()
 	timer.Update()
 
 	if ebiten.IsKeyPressed(ebiten.KeyEscape) {
@@ -63,7 +63,7 @@ func (g *Game) Update() error {
 func (g *Game) Draw(screen *ebiten.Image) {
 	screen.DrawImage(bg, nil)
 	player.Draw(screen)
-	myState.Draw(screen)
+	state.Draw(screen)
 	timer.Draw(screen)
 }
 
