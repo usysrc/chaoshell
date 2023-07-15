@@ -12,7 +12,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 )
 
-const DT = 1 / 60
+const DT = 0.016
 
 type Ship struct {
 	Entity
@@ -26,6 +26,7 @@ func newShip(container *element, state *State) *Ship {
 	s.state = state
 	s.speed = 400
 
+	// load an image from a file
 	var err error
 	s.img, _, err = ebitenutil.NewImageFromFile("ship.png")
 	if err != nil {
@@ -34,10 +35,11 @@ func newShip(container *element, state *State) *Ship {
 
 	s.scale = 4
 	s.op = &ebiten.DrawImageOptions{}
-	return nil
+	return s
 }
 
 func (s *Ship) onInit(state *State) error {
+
 	return nil
 }
 
@@ -56,9 +58,9 @@ func (s *Ship) onUpdate() error {
 		x += 1.0
 	}
 	if inpututil.IsKeyJustPressed(ebiten.KeySpace) {
-		var bullet = new(Bullet)
+		var bullet = &Bullet{}
 		bullet.Init(s.state)
-		bullet.SetPos(s.x+16, s.y)
+		bullet.SetPos(s.container.position.x+16, s.container.position.y)
 		s.state.AddEntity(bullet)
 	}
 	s.vx += x * DT * 5
@@ -67,29 +69,27 @@ func (s *Ship) onUpdate() error {
 	s.vy = math.Max(math.Min(s.vy, 1.0), -1.0)
 	s.vx *= 0.95
 	s.vy *= 0.95
-	s.x += s.vx * DT * s.speed
-	s.y += s.vy * DT * s.speed
-	if s.x > 800-64 {
-		s.x = 800 - 64
+	s.container.position.x += s.vx * DT * s.speed
+	s.container.position.y += s.vy * DT * s.speed
+	if s.container.position.x > 800-64 {
+		s.container.position.x = 800 - 64
 	}
-	if s.x < 0 {
-		s.x = 0
+	if s.container.position.x < 0 {
+		s.container.position.x = 0
 	}
-	if s.y < 0 {
-		s.y = 0
+	if s.container.position.y < 0 {
+		s.container.position.y = 0
 	}
-	if s.y > 600-64 {
-		s.y = 600 - 64
+	if s.container.position.y > 600-64 {
+		s.container.position.y = 600 - 64
 	}
-	s.container.position.x = s.x
-	s.container.position.y = s.y
 	return nil
 }
 
 func (s *Ship) onDraw(screen *ebiten.Image) error {
 	s.op.GeoM.Reset()
 	s.op.GeoM.Scale(s.scale, s.scale)
-	s.op.GeoM.Translate(s.container.position.x, s.container.position.x)
+	s.op.GeoM.Translate(s.container.position.x, s.container.position.y)
 	screen.DrawImage(s.img, s.op)
 	return nil
 }

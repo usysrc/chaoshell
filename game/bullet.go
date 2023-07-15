@@ -28,8 +28,8 @@ func (bullet *Bullet) SetPos(x, y float64) {
 	bullet.op.GeoM.Translate(bullet.x, bullet.y)
 }
 
-func (bullet *Bullet) Init(myState *State) {
-	bullet.state = myState
+func (bullet *Bullet) Init(state *State) {
+	bullet.state = state
 	bullet.speed = 1000
 	var err error
 	bullet.img, _, err = ebitenutil.NewImageFromFile("bullet.png")

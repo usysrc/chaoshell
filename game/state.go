@@ -4,6 +4,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
+// This struct is a collection that holds objects like enemies
 type State struct {
 	entities []IEntity
 }

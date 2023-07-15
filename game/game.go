@@ -33,17 +33,16 @@ func Spawn() {
 func (g *Game) Init() {
 	rand.Seed(time.Now().UnixNano())
 
-	timer = new(Timer)
+	timer = &Timer{}
 	timer.Init()
 
-	state = new(State)
+	state = &State{}
 	state.Init()
 
 	player = &element{}
 	player.position.x = 360
 	player.position.y = 500
 	player.addComponent(newShip(player, state))
-	player.init(state)
 
 	var err error
 	bg, _, err = ebitenutil.NewImageFromFile("background.png")

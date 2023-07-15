@@ -30,8 +30,8 @@ func (enemy *Enemy) SetPos(x, y float64) {
 	enemy.op.GeoM.Translate(enemy.x, enemy.y)
 }
 
-func (enemy *Enemy) Init(myState *State) {
-	enemy.state = myState
+func (enemy *Enemy) Init(state *State) {
+	enemy.state = state
 	enemy.speed = 200
 	var err error
 	enemy.img, _, err = ebitenutil.NewImageFromFile("enemy.png")
@@ -70,10 +70,10 @@ func (s *Enemy) Draw(screen *ebiten.Image) {
 	screen.DrawImage(s.img, s.op)
 }
 
-func SpawnEnemy(myState *State) {
-	var enemy = new(Enemy)
+func SpawnEnemy(state *State) {
+	var enemy = &Enemy{}
 	enemy.y = -64
 	enemy.x = rand.Float64() * 800.0
-	enemy.Init(myState)
-	myState.AddEntity(enemy)
+	enemy.Init(state)
+	state.AddEntity(enemy)
 }
