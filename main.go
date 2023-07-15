@@ -26,5 +26,4 @@ func main() {
 		// Other termination
 		log.Fatal(err)
 	}
-	// myGame.Init()
 }
