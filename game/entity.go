@@ -13,13 +13,13 @@ type IEntity interface {
 }
 
 type Entity struct {
+	op     *ebiten.DrawImageOptions
+	img    *ebiten.Image
+	state  *State
 	x, y   float64
 	vx, vy float64
 	speed  float64
-	img    *ebiten.Image
-	op     *ebiten.DrawImageOptions
 	scale  float64
-	state  *State
 }
 
 func (e *Entity) Draw(screen *ebiten.Image) {
