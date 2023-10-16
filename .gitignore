@@ -1,2 +1,3 @@
 chaoshell
 *.wasm
+.DS_STORE
