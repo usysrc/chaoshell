@@ -4,7 +4,6 @@ import (
 	"errors"
 	"log"
 	"math/rand"
-	"time"
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
@@ -31,7 +30,6 @@ func Spawn() {
 }
 
 func (g *Game) Init() {
-	rand.Seed(time.Now().UnixNano())
 
 	timer = new(Timer)
 	timer.Init()
