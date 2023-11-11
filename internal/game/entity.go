@@ -4,8 +4,16 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
+var nextID int = 0
+
+func getNextID() int {
+	nextID++
+	return nextID
+}
+
 type IEntity interface {
 	Type() string
+	ID() int
 	Update()
 	Draw(screen *ebiten.Image)
 	X() float64
@@ -20,6 +28,7 @@ type Entity struct {
 	vx, vy float64
 	speed  float64
 	scale  float64
+	id     int
 }
 
 func (e *Entity) Draw(screen *ebiten.Image) {
@@ -27,4 +36,8 @@ func (e *Entity) Draw(screen *ebiten.Image) {
 	e.op.GeoM.Scale(e.scale, e.scale)
 	e.op.GeoM.Translate(e.x, e.y)
 	screen.DrawImage(e.img, e.op)
+}
+
+func (e *Entity) ID() int {
+	return e.id
 }

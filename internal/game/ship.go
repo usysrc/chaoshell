@@ -26,6 +26,7 @@ func (s *Ship) SetPos(x, y float64) {
 }
 
 func (s *Ship) Init(myState *State) {
+	s.id = getNextID()
 	s.state = myState
 	s.speed = 400
 	var err error
@@ -53,7 +54,7 @@ func (s *Ship) Update() {
 		x += 1.0
 	}
 	if inpututil.IsKeyJustPressed(ebiten.KeySpace) {
-		bullet := new(Bullet)
+		bullet := &Bullet{}
 		bullet.Init(s.state)
 		bullet.SetPos(s.x+16, s.y)
 		s.state.AddEntity(bullet)

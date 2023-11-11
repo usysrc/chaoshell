@@ -31,6 +31,7 @@ func (enemy *Enemy) SetPos(x, y float64) {
 }
 
 func (enemy *Enemy) Init(myState *State) {
+	enemy.id = getNextID()
 	enemy.state = myState
 	enemy.speed = 200
 	var err error

@@ -6,26 +6,31 @@ import (
 )
 
 type State struct {
-	entities []IEntity
+	entities map[int]IEntity
 }
 
 func (s *State) Init() {
-	s.entities = make([]IEntity, 0)
+	s.entities = make(map[int]IEntity)
 }
 
-// return true means that iteration was complete, false means that iteration ended prematurely
-// the callback function returns false then iteration is ended immediatly
-func (s State) All(fn func(s IEntity) bool) bool {
-	// backwards because we might need to remove objects while iterating
-	for i := len(s.entities) - 1; i >= 0; i-- {
-		// we need to check, because length might change during iteration if we remove an item
-		if i < len(s.entities) {
-			ret := fn(s.entities[i])
-			if !ret {
-				return false
+func (s State) All(fn func(e IEntity) bool) bool {
+	// Create a temporary slice of keys to iterate over
+	// This avoids modifying the map during iteration
+	keys := make([]int, 0, len(s.entities))
+	for key := range s.entities {
+		keys = append(keys, key)
+	}
+
+	// Iterate over the entities using the keys slice
+	for _, key := range keys {
+		entity, exists := s.entities[key]
+		if exists {
+			if !fn(entity) {
+				return false // Terminate early if the callback returns false
 			}
 		}
 	}
+
 	return true
 }
 
@@ -43,23 +48,14 @@ func (s *State) Draw(screen *ebiten.Image) {
 }
 
 func (s *State) AddEntity(entity IEntity) {
-	s.entities = append(s.entities, entity)
+	s.entities[entity.ID()] = entity
 }
 
 func (s *State) RemoveEntity(entity IEntity) error {
-	index, found := 0, false
-	for i, e := range s.entities {
-		if e == entity {
-			found = true
-			index = i
-			break
-		}
+	_, exists := s.entities[entity.ID()]
+	if !exists {
+		return errors.New("entity not found")
 	}
-	if found {
-		// Remove the entity efficiently without preserving order
-		s.entities[index] = s.entities[len(s.entities)-1]
-		s.entities = s.entities[:len(s.entities)-1]
-		return nil
-	}
-	return errors.New("entity not found")
+	delete(s.entities, entity.ID())
+	return nil
 }

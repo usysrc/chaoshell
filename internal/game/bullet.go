@@ -28,6 +28,7 @@ func (b *Bullet) SetPos(x, y float64) {
 }
 
 func (b *Bullet) Init(myState *State) {
+	b.id = getNextID()
 	b.state = myState
 	b.speed = 1000
 	var err error

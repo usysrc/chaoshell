@@ -33,11 +33,13 @@ func (g *Game) Init() {
 	timer = new(Timer)
 	timer.Init()
 
-	myState = new(State)
+	myState = &State{}
 	myState.Init()
-	player = new(Ship)
+
+	player = &Ship{}
 	player.Init(myState)
 	player.SetPos(360, 500)
+
 	var err error
 	bg, _, err = ebitenutil.NewImageFromFile("internal/assets/background.png")
 	if err != nil {
