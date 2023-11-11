@@ -1,8 +1,6 @@
 package game
 
 import (
-	// color "image/color"
-	// "math"
 	_ "image/png"
 	"log"
 
@@ -49,7 +47,7 @@ func (b *Bullet) Update() {
 	b.x += b.vx * DT * b.speed
 	b.y += b.vy * DT * b.speed
 	if b.y < 0 {
-		b.state.RemoveEntity(b)
+		_ = b.state.RemoveEntity(b)
 	}
 	w := 32.0
 	h := 32.0
@@ -57,7 +55,7 @@ func (b *Bullet) Update() {
 	b.state.All(func(e IEntity) bool {
 		if e != b && e.Type() != b.Type() {
 			if b.x > e.X() && b.x < e.X()+w && b.y > e.Y() && b.y < e.Y()+h {
-				b.state.RemoveEntity(e)
+				_ = b.state.RemoveEntity(e)
 				found = true
 				return false
 			}
@@ -66,7 +64,7 @@ func (b *Bullet) Update() {
 	})
 
 	if found {
-		b.state.RemoveEntity(b)
+		_ = b.state.RemoveEntity(b)
 	}
 }
 

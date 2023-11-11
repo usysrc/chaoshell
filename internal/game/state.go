@@ -2,6 +2,7 @@ package game
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
+	"github.com/pkg/errors"
 )
 
 type State struct {
@@ -45,7 +46,7 @@ func (s *State) AddEntity(entity IEntity) {
 	s.entities = append(s.entities, entity)
 }
 
-func (s *State) RemoveEntity(entity IEntity) {
+func (s *State) RemoveEntity(entity IEntity) error {
 	index, found := 0, false
 	for i, e := range s.entities {
 		if e == entity {
@@ -55,6 +56,10 @@ func (s *State) RemoveEntity(entity IEntity) {
 		}
 	}
 	if found {
-		s.entities = append(s.entities[:index], s.entities[index+1:]...)
+		// Remove the entity efficiently without preserving order
+		s.entities[index] = s.entities[len(s.entities)-1]
+		s.entities = s.entities[:len(s.entities)-1]
+		return nil
 	}
+	return errors.New("entity not found")
 }
