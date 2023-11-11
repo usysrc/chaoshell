@@ -34,7 +34,7 @@ func (enemy *Enemy) Init(myState *State) {
 	enemy.state = myState
 	enemy.speed = 200
 	var err error
-	enemy.img, _, err = ebitenutil.NewImageFromFile("enemy.png")
+	enemy.img, _, err = ebitenutil.NewImageFromFile("internal/assets/enemy.png")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -52,7 +52,6 @@ func (enemy *Enemy) UpdatePosition() {
 		SpawnEnemy(enemy.state)
 		enemy.state.RemoveEntity(enemy)
 	}
-
 }
 
 func (enemy *Enemy) Update() {
@@ -71,7 +70,7 @@ func (s *Enemy) Draw(screen *ebiten.Image) {
 }
 
 func SpawnEnemy(myState *State) {
-	var enemy = new(Enemy)
+	enemy := new(Enemy)
 	enemy.y = -64
 	enemy.x = rand.Float64() * 800.0
 	enemy.Init(myState)

@@ -46,7 +46,7 @@ func (s *State) AddEntity(entity IEntity) {
 }
 
 func (s *State) RemoveEntity(entity IEntity) {
-	var index, found = 0, false
+	index, found := 0, false
 	for i, e := range s.entities {
 		if e == entity {
 			found = true

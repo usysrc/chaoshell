@@ -29,7 +29,7 @@ func (s *Ship) Init(myState *State) {
 	s.state = myState
 	s.speed = 400
 	var err error
-	s.img, _, err = ebitenutil.NewImageFromFile("ship.png")
+	s.img, _, err = ebitenutil.NewImageFromFile("internal/assets/ship.png")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -39,7 +39,7 @@ func (s *Ship) Init(myState *State) {
 }
 
 func (s *Ship) Update() {
-	var x, y = 0.0, 0.0
+	x, y := 0.0, 0.0
 	if ebiten.IsKeyPressed(ebiten.KeyUp) {
 		y -= 1.0
 	}
@@ -53,7 +53,7 @@ func (s *Ship) Update() {
 		x += 1.0
 	}
 	if inpututil.IsKeyJustPressed(ebiten.KeySpace) {
-		var bullet = new(Bullet)
+		bullet := new(Bullet)
 		bullet.Init(s.state)
 		bullet.SetPos(s.x+16, s.y)
 		s.state.AddEntity(bullet)
