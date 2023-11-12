@@ -12,8 +12,8 @@ type RenderSystem struct {
 }
 
 type RenderData struct {
-	entity component.Entity
 	render *component.Render
+	entity component.Entity
 }
 
 func (r *RenderSystem) Draw(screen *ebiten.Image) {
@@ -23,7 +23,6 @@ func (r *RenderSystem) Draw(screen *ebiten.Image) {
 			entity: e,
 			render: render,
 		})
-
 	}
 
 	sort.Slice(renderData, func(i, j int) bool {

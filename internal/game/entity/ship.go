@@ -11,7 +11,7 @@ import (
 func CreateShip(cm *component.Manager) component.Entity {
 	e := component.NewEntity()
 
-	cm.Positions[e] = &component.Position{X: 100, Y: 100}
+	cm.Positions[e] = &component.Position{X: 400, Y: 500}
 	cm.Velocities[e] = &component.Velocity{}
 
 	img, _, err := ebitenutil.NewImageFromFile("internal/assets/ship.png")
@@ -22,5 +22,4 @@ func CreateShip(cm *component.Manager) component.Entity {
 	cm.Tags[e] = &component.Tag{Name: "Ship"}
 
 	return e
-
 }
