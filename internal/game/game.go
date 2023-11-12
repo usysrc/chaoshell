@@ -2,68 +2,45 @@ package game
 
 import (
 	"errors"
-	"log"
-	"math/rand"
 
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
-)
-
-func init() {}
-
-var (
-	player    *Ship
-	bg        *ebiten.Image
-	container *Container
-	timer     *Timer
+	"github.com/usysrc/chaoshell/internal/game/component"
+	"github.com/usysrc/chaoshell/internal/game/entity"
+	"github.com/usysrc/chaoshell/internal/game/systems"
 )
 
 var ErrTerminated = errors.New("errTerminated")
 
-type Game struct{}
-
-func Spawn() {
-	timer.After(rand.Float64()*3.0, func() {
-		SpawnEnemy(container)
-		Spawn()
-	})
+type Game struct {
+	cm             *component.Manager
+	movementSystem *systems.MovementSystem
+	renderSystem   *systems.RenderSystem
+	inputSystem    *systems.InputSystem
 }
 
 func (g *Game) Init() {
-	timer = new(Timer)
-	timer.Init()
+	// Create component manager
+	g.cm = component.NewManager()
 
-	container = &Container{}
-	container.Init()
+	// Create entities
+	entity.CreateBackground(g.cm)
+	ship := entity.CreateShip(g.cm)
 
-	player = &Ship{}
-	player.Init(container)
-	player.SetPos(360, 500)
+	// Create systems
+	g.movementSystem = &systems.MovementSystem{Components: g.cm}
+	g.renderSystem = &systems.RenderSystem{Components: g.cm}
+	g.inputSystem = &systems.InputSystem{Components: g.cm, ShipEntity: ship}
 
-	var err error
-	bg, _, err = ebitenutil.NewImageFromFile("internal/assets/background.png")
-	if err != nil {
-		log.Fatal(err)
-	}
-	Spawn()
 }
 
 func (g *Game) Update() error {
-	player.Update()
-	container.Update()
-	timer.Update()
-
-	if ebiten.IsKeyPressed(ebiten.KeyEscape) {
-		return ErrTerminated
-	}
+	g.inputSystem.Update()
+	g.movementSystem.Update()
 	return nil
 }
 
 func (g *Game) Draw(screen *ebiten.Image) {
-	screen.DrawImage(bg, nil)
-	player.Draw(screen)
-	container.Draw(screen)
-	timer.Draw(screen)
+	g.renderSystem.Draw(screen)
 }
 
 func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeight int) {

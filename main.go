@@ -18,6 +18,7 @@ func main() {
 	ebiten.SetVsyncEnabled(false)
 	ebiten.SetTPS(60)
 
+	myGame := &game.Game{}
 	myGame.Init()
 	if err := ebiten.RunGame(myGame); err != nil {
 		if err == game.ErrTerminated {
