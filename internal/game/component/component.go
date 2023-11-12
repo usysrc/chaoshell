@@ -15,3 +15,7 @@ type Render struct {
 	Z     float64
 	Scale float64
 }
+
+type Tag struct {
+	Name string
+}

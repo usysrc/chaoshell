@@ -16,6 +16,8 @@ type Game struct {
 	movementSystem *systems.MovementSystem
 	renderSystem   *systems.RenderSystem
 	inputSystem    *systems.InputSystem
+	spawnSystem    *systems.Spawn
+	colliderSystem *systems.Collider
 }
 
 func (g *Game) Init() {
@@ -30,12 +32,15 @@ func (g *Game) Init() {
 	g.movementSystem = &systems.MovementSystem{Components: g.cm}
 	g.renderSystem = &systems.RenderSystem{Components: g.cm}
 	g.inputSystem = &systems.InputSystem{Components: g.cm, ShipEntity: ship}
-
+	g.spawnSystem = systems.NewSpawn(g.cm)
+	g.colliderSystem = &systems.Collider{Components: g.cm}
 }
 
 func (g *Game) Update() error {
 	g.inputSystem.Update()
 	g.movementSystem.Update()
+	g.colliderSystem.Update()
+	g.spawnSystem.Update()
 	return nil
 }
 

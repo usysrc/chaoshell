@@ -3,6 +3,7 @@ package entity
 import (
 	_ "image/png"
 	"log"
+	"math/rand"
 
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/usysrc/chaoshell/internal/game/component"
@@ -11,13 +12,14 @@ import (
 func CreateEnemy(cm *component.Manager) component.Entity {
 	e := component.NewEntity()
 
-	cm.Positions[e] = &component.Position{X: 100, Y: 100}
+	cm.Positions[e] = &component.Position{X: rand.Float64() * 800.0, Y: -32}
 
 	img, _, err := ebitenutil.NewImageFromFile("internal/assets/enemy.png")
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	cm.Renders[e] = &component.Render{Image: img}
+	cm.Velocities[e] = &component.Velocity{X: 0, Y: 1}
+	cm.Renders[e] = &component.Render{Image: img, Scale: 4}
+	cm.Tags[e] = &component.Tag{Name: "Enemy"}
 	return e
 }
