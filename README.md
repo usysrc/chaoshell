@@ -1,10 +1,16 @@
-# ChaosHell
-A very simple shoot em up to test the ebiten engine
+# Ebiten Boilerplate 
+
+A small boilerplate to make games in [ebiten engine](https://github.com/hajimehoshi/ebiten).
+
+Features:
+- Folder structure including asset folder
+- Very simple entity component system architecture 
+
 
 ## How to run
 
 ```
-./run.sh
+go run main.go
 ```
 
 ## How to run in browser
