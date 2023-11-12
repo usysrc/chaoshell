@@ -30,9 +30,9 @@ func (enemy *Enemy) SetPos(x, y float64) {
 	enemy.op.GeoM.Translate(enemy.x, enemy.y)
 }
 
-func (enemy *Enemy) Init(myState *State) {
+func (enemy *Enemy) Init(container *Container) {
 	enemy.id = getNextID()
-	enemy.state = myState
+	enemy.container = container
 	enemy.speed = 200
 	var err error
 	enemy.img, _, err = ebitenutil.NewImageFromFile("internal/assets/enemy.png")
@@ -50,8 +50,8 @@ func (enemy *Enemy) UpdatePosition() {
 	enemy.x += enemy.vx * DT * enemy.speed
 	enemy.y += enemy.vy * DT * enemy.speed
 	if enemy.y > 600 {
-		SpawnEnemy(enemy.state)
-		enemy.state.RemoveEntity(enemy)
+		SpawnEnemy(enemy.container)
+		enemy.container.RemoveEntity(enemy)
 	}
 }
 
@@ -70,7 +70,7 @@ func (s *Enemy) Draw(screen *ebiten.Image) {
 	screen.DrawImage(s.img, s.op)
 }
 
-func SpawnEnemy(myState *State) {
+func SpawnEnemy(myState *Container) {
 	enemy := new(Enemy)
 	enemy.y = -64
 	enemy.x = rand.Float64() * 800.0

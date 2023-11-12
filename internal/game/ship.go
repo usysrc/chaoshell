@@ -25,9 +25,9 @@ func (s *Ship) SetPos(x, y float64) {
 	s.op.GeoM.Translate(s.x, s.y)
 }
 
-func (s *Ship) Init(myState *State) {
+func (s *Ship) Init(container *Container) {
 	s.id = getNextID()
-	s.state = myState
+	s.container = container
 	s.speed = 400
 	var err error
 	s.img, _, err = ebitenutil.NewImageFromFile("internal/assets/ship.png")
@@ -55,9 +55,9 @@ func (s *Ship) Update() {
 	}
 	if inpututil.IsKeyJustPressed(ebiten.KeySpace) {
 		bullet := &Bullet{}
-		bullet.Init(s.state)
+		bullet.Init(s.container)
 		bullet.SetPos(s.x+16, s.y)
-		s.state.AddEntity(bullet)
+		s.container.AddEntity(bullet)
 
 	}
 	s.vx += x * DT * 5

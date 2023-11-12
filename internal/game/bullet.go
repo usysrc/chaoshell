@@ -27,9 +27,9 @@ func (b *Bullet) SetPos(x, y float64) {
 	b.op.GeoM.Translate(b.x, b.y)
 }
 
-func (b *Bullet) Init(myState *State) {
+func (b *Bullet) Init(container *Container) {
 	b.id = getNextID()
-	b.state = myState
+	b.container = container
 	b.speed = 1000
 	var err error
 	b.img, _, err = ebitenutil.NewImageFromFile("internal/assets/bullet.png")
@@ -48,15 +48,16 @@ func (b *Bullet) Update() {
 	b.x += b.vx * DT * b.speed
 	b.y += b.vy * DT * b.speed
 	if b.y < 0 {
-		_ = b.state.RemoveEntity(b)
+		_ = b.container.RemoveEntity(b)
 	}
 	w := 32.0
 	h := 32.0
 	found := false
-	b.state.All(func(e IEntity) bool {
+
+	b.container.All(func(e Entifier) bool {
 		if e != b && e.Type() != b.Type() {
 			if b.x > e.X() && b.x < e.X()+w && b.y > e.Y() && b.y < e.Y()+h {
-				_ = b.state.RemoveEntity(e)
+				_ = b.container.RemoveEntity(e)
 				found = true
 				return false
 			}
@@ -65,7 +66,7 @@ func (b *Bullet) Update() {
 	})
 
 	if found {
-		_ = b.state.RemoveEntity(b)
+		_ = b.container.RemoveEntity(b)
 	}
 }
 

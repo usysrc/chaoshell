@@ -11,7 +11,7 @@ func getNextID() int {
 	return nextID
 }
 
-type IEntity interface {
+type Entifier interface {
 	Type() string
 	ID() int
 	Update()
@@ -21,14 +21,18 @@ type IEntity interface {
 }
 
 type Entity struct {
-	op     *ebiten.DrawImageOptions
-	img    *ebiten.Image
-	state  *State
-	x, y   float64
-	vx, vy float64
-	speed  float64
-	scale  float64
-	id     int
+	op        *ebiten.DrawImageOptions
+	img       *ebiten.Image
+	container *Container
+	x, y      float64
+	vx, vy    float64
+	speed     float64
+	scale     float64
+	id        int
+}
+
+func (e *Entity) Update() {
+
 }
 
 func (e *Entity) Draw(screen *ebiten.Image) {
@@ -36,6 +40,10 @@ func (e *Entity) Draw(screen *ebiten.Image) {
 	e.op.GeoM.Scale(e.scale, e.scale)
 	e.op.GeoM.Translate(e.x, e.y)
 	screen.DrawImage(e.img, e.op)
+}
+
+func (e *Entity) Type() string {
+	return "entity"
 }
 
 func (e *Entity) ID() int {
