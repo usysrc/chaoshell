@@ -10,7 +10,9 @@ import (
 
 func CreateBullet(cm *component.Manager) component.Entity {
 	e := component.NewEntity()
+
 	cm.Positions[e] = &component.Position{X: 100, Y: 100}
+	cm.Velocities[e] = &component.Velocity{}
 
 	img, _, err := ebitenutil.NewImageFromFile("internal/assets/bullet.png")
 	if err != nil {
@@ -18,5 +20,6 @@ func CreateBullet(cm *component.Manager) component.Entity {
 	}
 
 	cm.Renders[e] = &component.Render{Image: img, Scale: 4, Z: 10}
+
 	return e
 }

@@ -47,6 +47,12 @@ func (is *InputSystem) Update() {
 		}
 		bulletPos.X = shipPos.X
 		bulletPos.Y = shipPos.Y
+
+		bulletVelo, exists := is.Components.Velocities[bullet]
+		if !exists {
+			log.Fatal("entity does not have velocity component")
+		}
+		bulletVelo.Y = -10
 	}
 
 	// apply friction

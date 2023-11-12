@@ -10,6 +10,7 @@ import (
 
 func CreateEnemy(cm *component.Manager) component.Entity {
 	e := component.NewEntity()
+
 	cm.Positions[e] = &component.Position{X: 100, Y: 100}
 
 	img, _, err := ebitenutil.NewImageFromFile("internal/assets/enemy.png")
