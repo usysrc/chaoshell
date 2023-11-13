@@ -9,7 +9,7 @@ import (
 )
 
 func CreateBullet(cm *component.Manager) component.Entity {
-	e := component.NewEntity()
+	e := cm.NewEntity()
 
 	cm.Positions[e] = &component.Position{X: 100, Y: 100}
 	cm.Velocities[e] = &component.Velocity{}

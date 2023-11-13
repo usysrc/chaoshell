@@ -1,15 +1,8 @@
 package component
 
-var nextID int = 0
-
-func getNextID() int {
-	nextID++
-	return nextID
-}
-
 type Entity int
 
-func NewEntity() Entity {
-	e := Entity(getNextID())
+func NewEntity(id int) Entity {
+	e := Entity(id)
 	return e
 }

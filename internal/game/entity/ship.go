@@ -9,7 +9,7 @@ import (
 )
 
 func CreateShip(cm *component.Manager) component.Entity {
-	e := component.NewEntity()
+	e := cm.NewEntity()
 
 	cm.Positions[e] = &component.Position{X: 400, Y: 500}
 	cm.Velocities[e] = &component.Velocity{}

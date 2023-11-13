@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	"github.com/hajimehoshi/ebiten/v2"
+
 	"github.com/usysrc/chaoshell/internal/game/component"
 	"github.com/usysrc/chaoshell/internal/game/entity"
 	"github.com/usysrc/chaoshell/internal/game/systems"

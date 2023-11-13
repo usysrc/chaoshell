@@ -10,7 +10,7 @@ import (
 )
 
 func CreateEnemy(cm *component.Manager) component.Entity {
-	e := component.NewEntity()
+	e := cm.NewEntity()
 
 	cm.Positions[e] = &component.Position{X: rand.Float64() * 800.0, Y: -32}
 

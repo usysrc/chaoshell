@@ -8,7 +8,7 @@ import (
 )
 
 func CreateBackground(cm *component.Manager) component.Entity {
-	e := component.NewEntity()
+	e := cm.NewEntity()
 
 	cm.Positions[e] = &component.Position{X: 0, Y: 0}
 
@@ -20,5 +20,4 @@ func CreateBackground(cm *component.Manager) component.Entity {
 	cm.Renders[e] = &component.Render{Image: img, Scale: 1, Z: -1000}
 
 	return e
-
 }
