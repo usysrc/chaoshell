@@ -10,7 +10,7 @@ Features:
 ## How to run
 
 ```
-go run main.go
+go run .
 ```
 
 ## How to run in browser
