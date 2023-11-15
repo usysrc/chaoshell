@@ -19,9 +19,10 @@ type InputSystem struct {
 func (is *InputSystem) Update() {
 	velocity, exists := is.Components.Velocities[is.ShipEntity]
 	if !exists {
-		log.Fatal("entity does not have velocity component")
+		log.Fatal("entity ship does not have velocity component")
 		return
 	}
+
 	speed := 16.0
 	if ebiten.IsKeyPressed(ebiten.KeyUp) {
 		velocity.Y -= 1.0 * DT * speed
