@@ -4,7 +4,7 @@ import (
 	"log"
 
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
-	"github.com/usysrc/chaoshell/internal/game/component"
+	"github.com/usysrc/ebiten-boilerplate/internal/game/component"
 )
 
 func CreateBackground(cm *component.Manager) component.Entity {

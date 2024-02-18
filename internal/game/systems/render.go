@@ -4,7 +4,7 @@ import (
 	"sort"
 
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/usysrc/chaoshell/internal/game/component"
+	"github.com/usysrc/ebiten-boilerplate/internal/game/component"
 )
 
 type RenderSystem struct {

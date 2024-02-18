@@ -1,7 +1,7 @@
 package systems
 
 import (
-	"github.com/usysrc/chaoshell/internal/game/component"
+	"github.com/usysrc/ebiten-boilerplate/internal/game/component"
 )
 
 type Collider struct {

@@ -3,8 +3,8 @@ package systems
 import (
 	"math/rand"
 
-	"github.com/usysrc/chaoshell/internal/game/component"
-	"github.com/usysrc/chaoshell/internal/game/entity"
+	"github.com/usysrc/ebiten-boilerplate/internal/game/component"
+	"github.com/usysrc/ebiten-boilerplate/internal/game/entity"
 )
 
 const spawnInterval float64 = 1.35

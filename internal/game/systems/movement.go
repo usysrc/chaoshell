@@ -1,6 +1,6 @@
 package systems
 
-import "github.com/usysrc/chaoshell/internal/game/component"
+import "github.com/usysrc/ebiten-boilerplate/internal/game/component"
 
 type MovementSystem struct {
 	// References to the relevant component managers or storages

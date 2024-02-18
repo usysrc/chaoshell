@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"github.com/hajimehoshi/ebiten/v2"
-	"github.com/usysrc/chaoshell/internal/game"
+	"github.com/usysrc/ebiten-boilerplate/internal/game"
 )
 
 var myGame *game.Game
@@ -14,7 +14,7 @@ func init() {}
 
 func main() {
 	ebiten.SetWindowSize(800, 600)
-	ebiten.SetWindowTitle("ChaosHell")
+	ebiten.SetWindowTitle("ebiten-boilerplate")
 	ebiten.SetVsyncEnabled(false)
 	ebiten.SetTPS(60)
 

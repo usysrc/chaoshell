@@ -1,4 +1,4 @@
-module github.com/usysrc/chaoshell
+module github.com/usysrc/ebiten-boilerplate
 
 go 1.21
 

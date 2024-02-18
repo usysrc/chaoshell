@@ -5,8 +5,8 @@ import (
 
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
-	"github.com/usysrc/chaoshell/internal/game/component"
-	"github.com/usysrc/chaoshell/internal/game/entity"
+	"github.com/usysrc/ebiten-boilerplate/internal/game/component"
+	"github.com/usysrc/ebiten-boilerplate/internal/game/entity"
 )
 
 const DT = 0.016

@@ -6,7 +6,7 @@ import (
 	"math/rand"
 
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
-	"github.com/usysrc/chaoshell/internal/game/component"
+	"github.com/usysrc/ebiten-boilerplate/internal/game/component"
 )
 
 func CreateEnemy(cm *component.Manager) component.Entity {

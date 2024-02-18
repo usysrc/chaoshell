@@ -5,9 +5,9 @@ import (
 
 	"github.com/hajimehoshi/ebiten/v2"
 
-	"github.com/usysrc/chaoshell/internal/game/component"
-	"github.com/usysrc/chaoshell/internal/game/entity"
-	"github.com/usysrc/chaoshell/internal/game/systems"
+	"github.com/usysrc/ebiten-boilerplate/internal/game/component"
+	"github.com/usysrc/ebiten-boilerplate/internal/game/entity"
+	"github.com/usysrc/ebiten-boilerplate/internal/game/systems"
 )
 
 var ErrTerminated = errors.New("errTerminated")
