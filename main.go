@@ -8,8 +8,6 @@ import (
 	"github.com/usysrc/ebiten-boilerplate/internal/game"
 )
 
-var myGame *game.Game
-
 func init() {}
 
 func main() {
