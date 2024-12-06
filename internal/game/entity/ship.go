@@ -18,7 +18,7 @@ func CreateShip(cm *component.Manager) component.Entity {
 	if err != nil {
 		log.Fatal(err)
 	}
-	cm.Renders[e] = &component.Render{Image: img, Scale: 4}
+	cm.Renders[e] = &component.Render{Image: img, Scale: 1}
 	cm.Tags[e] = &component.Tag{Name: "Ship"}
 
 	return e

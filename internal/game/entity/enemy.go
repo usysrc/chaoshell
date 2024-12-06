@@ -19,7 +19,7 @@ func CreateEnemy(cm *component.Manager) component.Entity {
 		log.Fatal(err)
 	}
 	cm.Velocities[e] = &component.Velocity{X: 0, Y: 1}
-	cm.Renders[e] = &component.Render{Image: img, Scale: 4}
+	cm.Renders[e] = &component.Render{Image: img, Scale: 1}
 	cm.Tags[e] = &component.Tag{Name: "Enemy"}
 	return e
 }

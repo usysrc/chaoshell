@@ -19,7 +19,7 @@ func CreateBullet(cm *component.Manager) component.Entity {
 		log.Fatal(err)
 	}
 
-	cm.Renders[e] = &component.Render{Image: img, Scale: 4, Z: 10}
+	cm.Renders[e] = &component.Render{Image: img, Scale: 1, Z: 10}
 	cm.Tags[e] = &component.Tag{Name: "Bullet"}
 
 	return e
